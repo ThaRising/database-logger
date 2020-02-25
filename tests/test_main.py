@@ -28,8 +28,8 @@ class TestConsoleParameters(unittest.TestCase):
         self.assertIsNotNone(self.run_entry(["-o", "bwc"])[1])
         # Test with both required options but invalid path
         self.assertIsNotNone(self.run_entry(["-i", "bwc", "-o", "test"])[1])
-        # Test with correct options and check wether the error output is empty
-        self.assertIsNotNone(self.run_entry(["-i", str(self.good_fin), "-o", "test"])[1])
+        # Test with correct options and check whether the error output is empty
+        self.assertFalse(self.run_entry(["-i", str(self.good_fin), "-o", "test"])[1])
 
 
 if __name__ == '__main__':
