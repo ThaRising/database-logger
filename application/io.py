@@ -30,10 +30,12 @@ class File:
                     fout.write("{}\n".format(line))
         else:
             db = Database(self.arguments.output)
+            objects = []
             for entry in self.__parsed_contents:
                 t, s, d = entry
                 t = datetime.strptime(t, "%H:%M:%S.%f").time()
-                db.add(Record(timestamp=t, source=s, destination=d))
+                objects.append(Record(timestamp=t, source=s, destination=d))
+            db.add_bulk(objects)
 
     def __repr__(self):
         return ",".join(self.contents)
