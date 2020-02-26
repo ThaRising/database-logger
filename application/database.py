@@ -12,12 +12,12 @@ class Database:
         Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
 
-    def add(self, object_: any) -> Optional[str]:
+    def add(self, objects: any) -> Optional[Exception]:
         session = self.Session()
         try:
-            session.add(object_)
+            session.bulk_save_objects(objects)
             session.commit()
-            return str(object_)
+            return
         except IntegrityError:
             session.rollback()
             return IntegrityError
