@@ -6,8 +6,9 @@ from .models import Base
 
 
 class Database:
-    def __init__(self, uri: str = "sqlite:///:memory:"):
-        self.engine = create_engine(uri)
+    def __init__(self, uri: str = ":memory:"):
+        self.uri = "sqlite:///{}".format(uri)
+        self.engine = create_engine(self.uri)
         Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
 
