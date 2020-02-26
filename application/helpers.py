@@ -13,8 +13,8 @@ class Arguments:
     save_to: Specifies wether to save the parsed results in a file or a database, options are either "file" or "db"
     """
     input: str = None
-    output: str = None
     save_to: str = None
+    output: str = None
 
     @property
     def input(self) -> any:
@@ -29,18 +29,6 @@ class Arguments:
         self._input = input_
 
     @property
-    def output(self) -> str:
-        return self._output
-
-    @output.setter
-    def output(self, output_: any) -> None:
-        if not type(output_) == str:
-            raise TypeError("-o parameter must be a string")
-        if os.path.isfile(output_):
-            raise FileExistsError(f"Path: {output_} would not be a new file")
-        self._output = output_
-
-    @property
     def save_to(self) -> str:
         return self._save_to
 
@@ -49,6 +37,18 @@ class Arguments:
         if not save_to_[1] in ("file", "db"):
             raise ValueError("saveto parameter must be either 'file' or 'db'")
         self._save_to = save_to_[1]
+
+    @property
+    def output(self) -> str:
+        return self._output
+
+    @output.setter
+    def output(self, output_: any) -> None:
+        if not type(output_) == str:
+            raise TypeError("-o parameter must be a string")
+        if os.path.isfile(output_) and self.save_to != "db":
+            raise FileExistsError(f"Path: {output_} would not be a new file")
+        self._output = output_
 
     def __len__(self) -> int:
         return len(self.__dict__)
