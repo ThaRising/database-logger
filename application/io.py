@@ -35,7 +35,7 @@ class File:
                 t, s, d = entry
                 t = datetime.strptime(t, "%H:%M:%S.%f").time()
                 objects.append(Record(timestamp=t, source=s, destination=d))
-            db.add_bulk(objects)
+            db.add(objects)
 
     def __repr__(self):
         return ",".join(self.contents)
