@@ -14,3 +14,7 @@ dist
 
 # Exclude test databases
 *.db
+
+# Exclude test data
+tcpdump_*.txt
+dump.txt
