@@ -5,8 +5,9 @@ from getopt import getopt, GetoptError
 from typing import List, Optional
 from dataclasses import dataclass
 import sys
-from application.File import File
+from application.File import File, Parser
 import os
+from application.Database import Database
 
 
 @dataclass
@@ -78,4 +79,6 @@ def main(argv_: List[str]) -> Optional[Arguments]:
 
 if __name__ == "__main__":
     params = main(sys.argv[1:])
-    print(File(params.input))
+    db = Database()
+    file = File(params.input, params.output)
+    file.dump_to_file(Parser(file).information)
