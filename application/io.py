@@ -3,6 +3,7 @@ from .helpers import Arguments
 from .models import Record
 from .database import Database
 from datetime import datetime
+import re
 
 
 class File:
@@ -55,5 +56,4 @@ class Parser:
                          (lambda t: t.split(".")[-1])(v[2]),
                          (lambda t: ".".join(t.split(".")[:-1]))((lambda x: x[:-1])(v[4])),
                          (lambda t: t.split(".")[-1])((lambda x: x[:-1])(v[4]))])(i.split(" "))
-                       for i in file.contents if "IP" in i]
-
+                       for i in file.contents if "IP" in i and not ("173.194." in i and "10.0.2." in i)]
