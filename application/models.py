@@ -9,6 +9,6 @@ class Record(Base):
     id = Column(Integer, primary_key=True)
     timestamp = Column(Time)
     source = Column(String)
+    sport = Column(String)
     destination = Column(String)
-
-
+    dport = Column(String)

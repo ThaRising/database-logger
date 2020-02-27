@@ -32,9 +32,9 @@ class File:
             db = Database(self.arguments.output)
             objects = []
             for entry in self.__parsed_contents:
-                t, s, d = entry
+                t, s, sp, d, dp = entry
                 t = datetime.strptime(t, "%H:%M:%S.%f").time()
-                objects.append(Record(timestamp=t, source=s, destination=d))
+                objects.append(Record(timestamp=t, source=s, sport=sp, destination=d, dport=dp))
             db.add(objects)
 
     def __repr__(self):
@@ -49,5 +49,11 @@ class File:
 
 class Parser:
     def __init__(self, file: File) -> None:
-        self.output = [(lambda v: [v[0], v[2], v[4][:-1]])(i.split(" ")) for i in file.contents if "IP" in i]
+        self.output = [(lambda v:
+                        [v[0],
+                         (lambda t: ".".join(t.split(".")[:-1]))(v[2]),
+                         (lambda t: t.split(".")[-1])(v[2]),
+                         (lambda t: ".".join(t.split(".")[:-1]))((lambda x: x[:-1])(v[4])),
+                         (lambda t: t.split(".")[-1])((lambda x: x[:-1])(v[4]))])(i.split(" "))
+                       for i in file.contents if "IP" in i]
 
