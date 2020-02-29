@@ -16,5 +16,5 @@ dist
 *.db
 
 # Exclude test data
-tcpdump_*.txt
-dump.txt
+*.txt
+!requirements.txt
