@@ -3,7 +3,6 @@ from .helpers import Arguments
 from .models import Record
 from .database import Database
 from datetime import datetime
-import re
 
 
 class File:
